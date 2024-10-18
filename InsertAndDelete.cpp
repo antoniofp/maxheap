@@ -1,4 +1,5 @@
 #include "./Heap.hpp"
+using namespace std;
 
 void bubble_up(heap_node* node){
     if (!node->parent) return;
@@ -103,4 +104,39 @@ void delete_from_mhead(heap_node*& root, int val){
     delete last;
 
     bubble_down(to_delete);
+}
+
+
+int find_max(heap_node* root){
+    if(!root){
+        return INT_MIN; 
+    }
+
+    int max_value=root->value;
+    if (root->left) {
+        max_value = max(max_value, find_max(root->left));
+    }
+    
+    if (root->right) {
+        max_value = max(max_value, find_max(root->right));
+    }
+
+    return max_value;
+}
+
+
+int find_min(heap_node* root){
+    if(!root){
+        return INT_MIN; 
+    }
+
+    int min_value=root->value;
+    if (root->left) {
+        min_value = min(min_value, find_min(root->left));
+    }
+    
+    if (root->right) {
+        min_value = min(min_value, find_min(root->right));
+    }
+    return min_value;
 }
